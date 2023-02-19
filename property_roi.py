@@ -4,11 +4,9 @@
 # In & Out of place algorithms, two pointers, linked lists, merge sort, 
 # Time & Space complexity, Data structures - Arrays, stacks, queues, linked lists
 
-
 # Assignment - Create a object oriented program that calculates Return on Investment for a property
 # Scenario 
 # Purchase price of house - 200,000
-
 
 class Roi():
     def __init__(self, num_units, purchase_price):
@@ -18,6 +16,8 @@ class Roi():
         self.total_monthly_income = 0
         self.expenses_dict = {}
         self.total_monthly_expenses = 0
+        self.monthly_cash_flow = 0
+        self.total_investment = 0
 
 
 #----------INCOME---------
@@ -41,6 +41,8 @@ class Roi():
         for value in self.income_dict.values():
             self.total_monthly_income += int(value)
         print(f'Total monthly income: ${self.total_monthly_income}')
+        print('\n')
+        self.expenses()
         
 
 #-----Testing Code-----
@@ -63,11 +65,13 @@ class Roi():
                 #print(self.expenses_dict)
         # print list of all the units and each expense
         for key, value in self.expenses_dict.items():
-            print(f'Unit {key} : ${value}')
+            print(f'{key} : ${value}')
         # calculate total monthly expenses from expenses dictionary
         for value in self.expenses_dict.values():
             self.total_monthly_expenses += int(value)
         print(f'Total monthly expenses: ${self.total_monthly_expenses}')
+        print('\n')
+        self.cash_flow()
 
 #-----Testing Code-----
 # house = Roi(2,200000)
@@ -79,13 +83,50 @@ class Roi():
 # Monthly Cash flow = Income - Expenses
     def cash_flow(self):
         print('---------MONTHLY CASH FLOW---------')
-        monthly_cash_flow = self.total_monthly_income - self.total_monthly_expenses
-        print(f'Monthly cash flow: ${monthly_cash_flow}')
+        self.monthly_cash_flow = self.total_monthly_income - self.total_monthly_expenses
+        print(f'Monthly cash flow: ${self.monthly_cash_flow}')
+        print('\n')
+        self.investment()
 
 
 #---------CASH ON CASH ROI---------
 # Dependent on how much money we put into the deal
     # Down payment, closing costs, renovation, mics.
-# Total investment at time
+    # need to calculate Total investments
 # Annual Cash Flow = 12 * Monthly Cash Flow
 # Annual Cash Flow / Total Investment = Return on Investment 
+
+#----------TOTAL INVESTMENT CALC---------
+    def investment(self):
+        print('---------TOTAL INVESTMENT CALCULATOR---------')
+        investments_dict = {}
+        while True:
+            # ask user for additional investments made forthe property
+            investment = input(f'Type in any additional investments and their cost [Investment name, cost]--(type "q" to quit)--: ')
+            if investment.lower() == 'q':
+                break
+            else:
+                # we'll have to split this string and use 1st index as key and 2nd index as value
+                #print(investment.split(', '))
+                investment_cost = investment.split(', ')
+                self.expenses_dict[investment_cost[0]] = investment_cost[1]
+                #print(investments_dict)
+        # print list of all investments and costs
+        for key, value in investments_dict.items():
+            print(f'{key} : ${value}')
+        # calculate total investment
+        for value in investments_dict.values():
+            self.total_investment += int(value)
+        print(f'Total Investment: ${self.total_investment}')
+        print('\n')
+        self.return_on_invest()
+
+
+#----------RETURN ON INVESTMENT CALC----------
+    def return_on_invest(self):
+        annual_cash_flow = 12 * self.monthly_cash_flow
+        roi = (annual_cash_flow / self.total_investment) * 100
+        print(f'Cash on Cash ROI = {roi}%')
+
+house = Roi(3, 450000)
+house.income()
