@@ -17,6 +17,7 @@ class Roi():
         self.expenses_dict = {}
         self.total_monthly_expenses = 0
         self.monthly_cash_flow = 0
+        self.investment_dict = {}
         self.total_investment = 0
 
 
@@ -99,7 +100,6 @@ class Roi():
 #----------TOTAL INVESTMENT CALC---------
     def investment(self):
         print('---------TOTAL INVESTMENT CALCULATOR---------')
-        investments_dict = {}
         while True:
             # ask user for additional investments made forthe property
             investment = input(f'Type in any additional investments and their cost [Investment name, cost]--(type "q" to quit)--: ')
@@ -109,23 +109,29 @@ class Roi():
                 # we'll have to split this string and use 1st index as key and 2nd index as value
                 #print(investment.split(', '))
                 investment_cost = investment.split(', ')
-                self.expenses_dict[investment_cost[0]] = investment_cost[1]
+                self.investment_dict[investment_cost[0]] = investment_cost[1]
                 #print(investments_dict)
         # print list of all investments and costs
-        for key, value in investments_dict.items():
+        for key, value in self.investment_dict.items():
             print(f'{key} : ${value}')
         # calculate total investment
-        for value in investments_dict.values():
+        for value in self.investment_dict.values():
             self.total_investment += int(value)
         print(f'Total Investment: ${self.total_investment}')
         print('\n')
         self.return_on_invest()
 
+#Test Code
+# house = Roi(3, 450000)
+# house.investment()
 
 #----------RETURN ON INVESTMENT CALC----------
     def return_on_invest(self):
+        # calc annual cash flow from monthly cash flow
         annual_cash_flow = 12 * self.monthly_cash_flow
-        roi = (annual_cash_flow / self.total_investment) * 100
+        print(f'Annual Cash Flow: {annual_cash_flow}')
+        print(f'Total Investment: {self.total_investment}')
+        roi = round(((annual_cash_flow / self.total_investment) * 100), 2)
         print(f'Cash on Cash ROI = {roi}%')
 
 house = Roi(3, 450000)
