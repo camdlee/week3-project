@@ -192,6 +192,26 @@ class Roi():
                 print('Invalid email address')
                 
 
+# #---------RUNNER FUNCTION---------
+#     def runner(self):
+#         print('\n')
+#         while True:
+#             choice = input("What do you want to do calculate? (Income, Expenses, Investment, ROI, Appreciation, or quit) ").lower()
+#             if choice == "income" :
+#                 self.income()
+#             elif choice == 'expenses':
+#                 self.expenses()
+#             elif choice == "investment":
+#                 self.investment()
+#             elif choice == "appreciation":
+#                 self.appreciation()
+#             elif choice == "quit":
+#                 break
+#             else:
+#                 print("Invalid choice!")
+
+# didn't really use runner function because it's a linear process
+
 house = Roi(2, 400000)
 # house.email_roi()
 
