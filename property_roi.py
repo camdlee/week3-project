@@ -6,7 +6,7 @@
 
 # Assignment - Create a object oriented program that calculates Return on Investment for a property
 # Scenario 
-# Purchase price of house - 200,000
+# Purchase price of house - 400,000
 
 class Roi():
     def __init__(self, num_units, purchase_price):
@@ -25,6 +25,7 @@ class Roi():
 
 #----------INCOME---------
     def income(self):
+        print('\n')
         print('---------MONTHLY INCOME CALCULATOR---------')
         while True:
             if len(self.income_dict) == self.num_units:
@@ -51,7 +52,7 @@ class Roi():
         
 
 #-----Testing Code-----
-# house = Roi(2,200000)
+# house = Roi(2,400000)
 # house.income()
 
 #----------EXPENSES---------
@@ -79,7 +80,7 @@ class Roi():
         self.cash_flow()
 
 #-----Testing Code-----
-# house = Roi(2,200000)
+# house = Roi(2,400000)
 # house.expenses()
 
 
@@ -106,7 +107,7 @@ class Roi():
         print('---------TOTAL INVESTMENT CALCULATOR---------')
         while True:
             # ask user for additional investments made forthe property
-            investment = input(f'Type in any additional investments and their cost [Investment name, cost]--(type "f" to finish list)--: ')
+            investment = input(f'Type in your investments and their cost [Investment name, cost]--(type "f" to finish list)--: ')
             if investment.lower() == 'f':
                 break
             else:
@@ -126,7 +127,7 @@ class Roi():
         self.return_on_invest()
 
 #Test Code
-# house = Roi(3, 450000)
+# house = Roi(2, 400000)
 # house.investment()
 
 #----------RETURN ON INVESTMENT CALC----------
@@ -141,21 +142,26 @@ class Roi():
         roi = round(((annual_cash_flow/ self.total_investment) * 100), 2)
         print(f'Cash on Cash ROI = {roi}%')
         print('\n')
-        # choice = input(f'Would you like to email the ROI info, calculate the appreciation of your property, or quit? (Type "email", "appreciation")')
-        # if choice.lower() == "email":
-        #     self.email_roi()
-        # elif choice.lower() == "appreciation":
-        #     self.appreciation()
+        choice = input(f'Would you like to email the ROI info, calculate the appreciation of your property, or quit? (Type "email", "appreciation") ')
+        if choice.lower() == "email":
+            self.email_roi()
+        elif choice.lower() == "appreciation":
+            self.appreciation()
 
 #---------PROPERTY APPRECIATION-------
-# using recursion for appreciation
     def appreciation(self):
+        print('\n')
         print('---------PROPERTY APPRECIATION CALCULATOR---------')
         self.years_appreciate = int(input("Type in the number of years you'd like to caculate for the appreciation: "))
         final_value = round((self.purchase_price)*((1+.077)**self.years_appreciate))
-        print(f'After {self.years_appreciate} year(s), your property will be valued at ${final_value}')  
+        print(f'After {self.years_appreciate} year(s), your property will be valued at ${final_value}')
+        print('\n')
+        choice = input(f'Would you like to email the ROI info? (Y/N)')
+        if choice.lower() == "y":
+            self.email_roi()  
         #self.appreciation_calc()
 
+# trying to use recursion for appreciation
     # def appreciation_calc(self):
     #     if self.years_appreciate <= 1:
     #         print(f'Year {self.years_appreciate} = {self.final_value}')
@@ -168,22 +174,25 @@ class Roi():
 # Year 2 = Year 1 + (Year 1's value * .077)
 # Year 3 = year 2 + (Year 2's value * .077)
 
-house = Roi(2, 400000)
-house.appreciation()
+# house = Roi(2, 400000)
+# house.appreciation()
 
 #---------EMAIL ROI INFO---------
-    # def email_roi(self):
-    #     email_info = input('Please type in the email to forward your ROI information to: ')
-    #     import re
-    #     pattern = re.compile(r'\w+@\w+.(com|org)$')
-    #     valid = pattern.search(email_info)
-    #     if valid:
-    #         print(f'Sending ROI inforomation to: {email_info}')
-    #     else:
-    #         print('Invalid email address')
-    #         return
+    def email_roi(self):
+        print('\n')
+        while True:
+            email_info = input('Please type in the email to forward your ROI information to: ')
+            import re
+            pattern = re.compile(r'\w+@\w+.(com|org)$')
+            valid = pattern.search(email_info)
+            if valid:
+                print(f'Sending ROI inforomation to: {email_info}')
+                break
+            else:
+                print('Invalid email address')
+                
 
-# house = Roi(2, 450000)
-# house.income()
+house = Roi(2, 400000)
+# house.email_roi()
 
-# what if user types in $100,000 - I need to remove $ and , 
+house.income()
