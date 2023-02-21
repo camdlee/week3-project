@@ -196,7 +196,7 @@ class Roi():
 #---------RUNNER FUNCTION---------
     def runner(self):
         while True:
-            choice = input("What do you want to do calculate? (Income, Expenses, Cash Flow, Investment, ROI, Appreciation, or quit) ").lower()
+            choice = input("What do you want to do calculate? (Income, Expenses, Cash Flow, Investment, ROI, Appreciation, email, or quit) ").lower()
             if choice == "income" :
                 self.income()
             elif choice == 'expenses':
@@ -209,6 +209,8 @@ class Roi():
                 self.return_on_invest()
             elif choice == "appreciation":
                 self.appreciation()
+            elif choice == 'email':
+                self.email_roi()
             elif choice == "quit":
                 break
             else:
