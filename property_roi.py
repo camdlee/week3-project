@@ -48,7 +48,7 @@ class Roi():
             self.total_monthly_income += int(value)
         print(f'Total monthly income: ${self.total_monthly_income}')
         print('\n')
-        self.expenses()
+        # self.expenses()
         
 
 #-----Testing Code-----
@@ -57,6 +57,7 @@ class Roi():
 
 #----------EXPENSES---------
     def expenses(self):
+        print('\n')
         print('---------MONTHLY EXPENSES CALCULATOR---------')
         while True:
             # ask user for expense stream for each unit in the property
@@ -76,8 +77,7 @@ class Roi():
         for value in self.expenses_dict.values():
             self.total_monthly_expenses += int(value)
         print(f'Total monthly expenses: ${self.total_monthly_expenses}')
-        print('\n')
-        self.cash_flow()
+        # self.cash_flow()
 
 #-----Testing Code-----
 # house = Roi(2,400000)
@@ -88,11 +88,11 @@ class Roi():
 # Dependent on Income and Expenses
 # Monthly Cash flow = Income - Expenses
     def cash_flow(self):
+        print('\n')
         print('---------MONTHLY CASH FLOW---------')
         self.monthly_cash_flow = self.total_monthly_income - self.total_monthly_expenses
         print(f'Monthly cash flow: ${self.monthly_cash_flow}')
-        print('\n')
-        self.investment()
+        # self.investment()
 
 
 #---------CASH ON CASH ROI---------
@@ -104,6 +104,7 @@ class Roi():
 
 #----------TOTAL INVESTMENT CALC---------
     def investment(self):
+        print('\n')
         print('---------TOTAL INVESTMENT CALCULATOR---------')
         while True:
             # ask user for additional investments made forthe property
@@ -123,8 +124,7 @@ class Roi():
         for value in self.investment_dict.values():
             self.total_investment += int(value)
         print(f'Total Investment: ${self.total_investment}')
-        print('\n')
-        self.return_on_invest()
+        # self.return_on_invest()
 
 #Test Code
 # house = Roi(2, 400000)
@@ -132,6 +132,7 @@ class Roi():
 
 #----------RETURN ON INVESTMENT CALC----------
     def return_on_invest(self):
+        print('\n')
         # calc annual cash flow from monthly cash flow
         annual_cash_flow = 12 * self.monthly_cash_flow
         print(f'Annual Cash Flow: ${annual_cash_flow}')
@@ -141,12 +142,12 @@ class Roi():
         print(f'Total Investment: ${self.total_investment}')
         roi = round(((annual_cash_flow/ self.total_investment) * 100), 2)
         print(f'Cash on Cash ROI = {roi}%')
-        print('\n')
-        choice = input(f'Would you like to email the ROI info, calculate the appreciation of your property, or quit? (Type "email", "appreciation") ')
-        if choice.lower() == "email":
-            self.email_roi()
-        elif choice.lower() == "appreciation":
-            self.appreciation()
+        # print('\n')
+        # choice = input(f'Would you like to email the ROI info, calculate the appreciation of your property, or quit? (Type "email", "appreciation") ')
+        # if choice.lower() == "email":
+        #     self.email_roi()
+        # elif choice.lower() == "appreciation":
+        #     self.appreciation()
 
 #---------PROPERTY APPRECIATION-------
     def appreciation(self):
@@ -155,10 +156,10 @@ class Roi():
         self.years_appreciate = int(input("Type in the number of years you'd like to caculate for the appreciation: "))
         final_value = round((self.purchase_price)*((1+.077)**self.years_appreciate))
         print(f'After {self.years_appreciate} year(s), your property will be valued at ${final_value}')
-        print('\n')
-        choice = input(f'Would you like to email the ROI info? (Y/N)')
-        if choice.lower() == "y":
-            self.email_roi()  
+        # print('\n')
+        # choice = input(f'Would you like to email the ROI info? (Y/N)')
+        # if choice.lower() == "y":
+        #     self.email_roi()  
         #self.appreciation_calc()
 
 # trying to use recursion for appreciation
@@ -192,27 +193,30 @@ class Roi():
                 print('Invalid email address')
                 
 
-# #---------RUNNER FUNCTION---------
-#     def runner(self):
-#         print('\n')
-#         while True:
-#             choice = input("What do you want to do calculate? (Income, Expenses, Investment, ROI, Appreciation, or quit) ").lower()
-#             if choice == "income" :
-#                 self.income()
-#             elif choice == 'expenses':
-#                 self.expenses()
-#             elif choice == "investment":
-#                 self.investment()
-#             elif choice == "appreciation":
-#                 self.appreciation()
-#             elif choice == "quit":
-#                 break
-#             else:
-#                 print("Invalid choice!")
+#---------RUNNER FUNCTION---------
+    def runner(self):
+        while True:
+            choice = input("What do you want to do calculate? (Income, Expenses, Cash Flow, Investment, ROI, Appreciation, or quit) ").lower()
+            if choice == "income" :
+                self.income()
+            elif choice == 'expenses':
+                self.expenses()
+            elif choice == 'cash flow':
+                self.cash_flow()
+            elif choice == "investment":
+                self.investment()
+            elif choice == 'roi':
+                self.return_on_invest()
+            elif choice == "appreciation":
+                self.appreciation()
+            elif choice == "quit":
+                break
+            else:
+                print("Invalid choice!")
 
 # didn't really use runner function because it's a linear process
 
 house = Roi(2, 400000)
 # house.email_roi()
 
-house.income()
+house.runner()
